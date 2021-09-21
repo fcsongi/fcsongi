@@ -1,0 +1,536 @@
+[
+    {
+        "supplier_name": "PCCW",
+        "baseURL": "https://api.pccwg-osp.com",
+        "builder": [
+            {
+                "method": "POST",
+                "path": "/token",
+                "headers": {
+                    "Authorization": "Basic NFZJREcyU1g5QjZYS0Z1Mlg1Qk5fVlZqWGlnYTpNSnJiTHlvTDlsSnBvSE5LRV9tam14WjlteU1h"
+                },
+                "payloadType": "",
+                "payload": {
+                    "grant_type": "client_credentials",
+                    "scope": "openid"
+                },
+                "process_response": {
+                    "200": {
+                        "checkKeysAndValues": {},
+                        "authentication": {
+                            "token": "getKeyFrom:['access_token'],response.json()",
+                            "tokenType": "getKeyFrom:['token_type'],response.json()"
+                        }
+                    }
+                }
+            }
+        ],
+        "products": [
+            {
+                "product_name": "Connectivities",
+                "builder": [
+                    {
+                        "method": "POST",
+                        "path": "/quoteManagement/1.1.0/quote",
+                        "headers": {
+                            "Authorization": "eval:authentication['tokenType'] + ' ' + authentication['token']"
+                        },
+                        "payloadType": "json",
+                        "payload": {
+                            "externalId": "getKeyFrom:['quoteId'],site",
+                            "customer": {
+                                "id": "COM074"
+                            },
+                            "quoteItem": [
+                                {
+                                    "id": "getKeyFrom:['siteId'],site",
+                                    "action": "add",
+                                    "productOffering": {
+                                        "id": "GIA"
+                                    },
+                                    "product": {
+                                        "productCharacteristic": [
+                                            {
+                                                "name": "country",
+                                                "value": "getKeyFrom:['countryCode3'],site"
+                                            },
+                                            {
+                                                "name": "city",
+                                                "value": "getKeyFrom:['city'],site"
+                                            },
+                                            {
+                                                "name": "address",
+                                                "value": "getKeyFrom:['address'],site"
+                                            },
+                                            {
+                                                "name": "portType",
+                                                "value": "getKeyFrom:['portType'],site"
+                                            },
+                                            {
+                                                "name": "bandwidth",
+                                                "value": "getKeyFrom:['bandwidth'],site"
+                                            },
+                                            {
+                                                "name": "bandwidthUnit",
+                                                "value": "Mbps"
+                                            },
+                                            {
+                                                "name": "contractLength",
+                                                "value": "getKeyFrom:['contract_term_year'],site"
+                                            },
+                                            {
+                                                "name": "contractLengthUnit",
+                                                "value": "year"
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "process_response": {
+                            "201": {
+                                "checkKeysAndValues": {},
+                                "site": {
+                                    "Supplier OTC cost": "getKeyFrom:['quoteItem'][0]['itemQuoteProductOfferingPrice'][0]['itemQuotePriceAlteration']['price']['override'],response.json()",
+                                    "Supplier MRC cost": "getKeyFrom:['quoteItem'][0]['itemQuoteProductOfferingPrice'][1]['itemQuotePriceAlteration']['price']['override'],response.json()"
+                                }
+                            }
+                        }
+                    }
+                ],
+                "supported_countries_codes": [
+                    "DZA",
+                    "ARG",
+                    "AUS",
+                    "AUT",
+                    "BHR",
+                    "BLR",
+                    "BEL",
+                    "BRA",
+                    "CAN",
+                    "CHL",
+                    "CHN",
+                    "COL",
+                    "CRI",
+                    "CIV",
+                    "CYP",
+                    "CZE",
+                    "COD",
+                    "DNK",
+                    "ECU",
+                    "EGY",
+                    "EST",
+                    "ETH",
+                    "FIN",
+                    "FRA",
+                    "DEU",
+                    "GHA",
+                    "GIA",
+                    "GRC",
+                    "HKG",
+                    "IND",
+                    "IDN",
+                    "IRN",
+                    "IRL",
+                    "ISR",
+                    "ITA",
+                    "JPN",
+                    "KAZ",
+                    "KEN",
+                    "KWT",
+                    "LVA",
+                    "LTU",
+                    "LUX",
+                    "MYS",
+                    "MLT",
+                    "MEX",
+                    "MCO",
+                    "MAR",
+                    "MOZ",
+                    "NAM",
+                    "NLD",
+                    "NGA",
+                    "NOR",
+                    "OMN",
+                    "PAN",
+                    "PER",
+                    "PHL",
+                    "PRT",
+                    "QAT",
+                    "COG",
+                    "RUS",
+                    "KOR",
+                    "SAU",
+                    "SEN",
+                    "SGP",
+                    "ZAF",
+                    "ESP",
+                    "SWE",
+                    "CHE",
+                    "TWN",
+                    "THA",
+                    "TGO",
+                    "UGA",
+                    "UKR",
+                    "ARE",
+                    "GBR",
+                    "USA",
+                    "URY",
+                    "VEN",
+                    "VNM"
+                ]
+            }
+        ]
+    },
+    {
+        "supplier_name": "Tecex",
+        "baseURL": "https://tecex.force.com/ncpo/services/apexrest",
+        "builder": [
+            {
+                "method": "POST",
+                "path": "/PortalLogin",
+                "headers": {},
+                "payload": {
+                    "username": "adorjani.arpad@combridge.ro",
+                    "password": "yvc8-C9#!cHdGxW",
+                    "domain": "login"
+                },
+                "payloadType": "params",
+                "process_response": {
+                    "200": {
+                        "checkKeysAndValues": {},
+                        "authentication": {
+                            "token": "getKeyFrom:['sessionId'],response.json()",
+                            "tokenType": "Bearer"
+                        }
+                    }
+                }
+            },
+            {
+                "method": "POST",
+                "path": "/MyDetails",
+                "headers": {
+                    "Authorization": "eval:authentication['tokenType'] + ' ' + authentication['token']"
+                },
+                "payload": {
+                    "ClientuserID": "0051v0000096oTjAAI"
+                },
+                "payloadType": "json",
+                "process_response": {
+                    "200": {
+                        "checkKeysAndValues": {},
+                        "authentication": {
+                            "ClientAccID": "getKeyFrom:['ClientUserIds'][0]['ClientAccID'],response.json()",
+                            "ClientContactId": "getKeyFrom:['ClientUserIds'][0]['ClientContactId'],response.json()",
+                            "AccessToken": "eval:base64.b64decode(response.json()['ClientUserIds'][0]['AccessToken']).decode('utf-8')"
+                        }
+                    }
+                }
+            }
+        ],
+        "products": [
+            {
+                "product_name": "IOR providers",
+                "builder": [
+                    {
+                        "method": "GET",
+                        "path": "/MyDestinationCountrieslist",
+                        "headers": {
+                            "Authorization": "eval:authentication['tokenType'] + ' ' + authentication['token']"
+                        },
+                        "payloadType": "data",
+                        "payload": {},
+                        "process_response": {
+                            "200": {
+                                "checkKeysAndValues": {},
+                                "site": {
+                                    "countryName": "eval:getCountryNameFromSupplier()"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "method": "POST",
+                        "path": "/CreateQuickQuote",
+                        "headers": {
+                            "Authorization": "eval:authentication['tokenType'] + ' ' + authentication['token']"
+                        },
+                        "payloadType": "json",
+                        "payload": {
+                            "AccountID": "getKeyFrom:['ClientAccID'],authentication",
+                            "ContactID": "getKeyFrom:['ClientContactId'],authentication",
+                            "AccessToken": "getKeyFrom:['AccessToken'],authentication",
+                            "Quotes": [
+                                {
+                                    "estimatedChargableweight": "getKeyFrom:['shipment_weight'],site",
+                                    "ServiceType": "IOR",
+                                    "Courier_responsibility": "Client",
+                                    "ShipFrom": "Romania",
+                                    "ShipTo": "getKeyFrom:['countryName'],site",
+                                    "ShipmentvalueinUSD": "getKeyFrom:['shipment_value'],site",
+                                    "PONumber": "TestPONumber",
+                                    "Type_of_Goods": "New",
+                                    "Li_ion_Batteries": "No",
+                                    "Li_ion_BatteryTypes": "",
+                                    "NumberOfFinaldeliveries": "getKeyFrom:['number_of_sites'],site",
+                                    "ShipmentOrder_Packages": [],
+                                    "FinalDelivieries": [],
+                                    "Parts": []
+                                }
+                            ]
+                        },
+                        "process_response": {
+                            "200": {
+                                "checkKeysAndValues": {},
+                                "site": {
+                                    "SOID": "getKeyFrom:['Id'],response.json()"
+                                }
+                            }
+                        }
+                    },
+                    {
+                        "method": "POST",
+                        "path": "/CEDetails",
+                        "headers": {
+                            "Authorization": "eval:authentication['tokenType'] + ' ' + authentication['token']"
+                        },
+                        "payloadType": "json",
+                        "payload": {
+                            "SOID": "getKeyFrom:['SOID'],site",
+                            "AccessToken": "getKeyFrom:['AccessToken'],authentication"
+                        },
+                        "process_response": {
+                            "200": {
+                                "checkKeysAndValues": {
+                                    "['ShipmentOrder']['Shippingstatus']": "Cost Estimate"
+                                },
+                                "site": {
+                                    "IOR and Import Compliance Fee": "getKeyFrom:['ShipmentOrder']['IORandImportComplianceFeeUSDnumb'],response.json()",
+                                    "Admin Fee": "getKeyFrom:['ShipmentOrder']['HandlingandAdminFee'],response.json()",
+                                    "Liability Cover Fee": "getKeyFrom:['ShipmentOrder']['InsuranceFeeUSD'],response.json()",
+                                    "Tax and Duty": "getKeyFrom:['ShipmentOrder']['TaxCost'],response.json()",
+                                    "Total - Customs Brokerage Cost": "getKeyFrom:['ShipmentOrder']['TotalCustomsBrokerageCost'],response.json()",
+                                    "Total - Clearance Costs": "getKeyFrom:['ShipmentOrder']['TotalclearanceCosts'],response.json()",
+                                    "Total - Handling Costs": "getKeyFrom:['ShipmentOrder']['RechargeHandlingCosts'],response.json()",
+                                    "Total - License Cost": "getKeyFrom:['ShipmentOrder']['RechargeLicenseCost '],response.json()",
+                                    "Bank Fees": "getKeyFrom:['ShipmentOrder']['BankFees'],response.json()",
+                                    "Total Invoice Amount": "getKeyFrom:['ShipmentOrder']['Totalincludingestimateddutiesandtax'],response.json()",
+                                    "Notes": ""
+                                }
+                            }
+                        }
+                    }
+                ],
+                "supported_countries_codes": [
+                    "BFA",
+                    "BGR",
+                    "CHN",
+                    "CXR",
+                    "TCD",
+                    "CAF",
+                    "CMR",
+                    "CAN",
+                    "CYM",
+                    "CRI",
+                    "MDG",
+                    "MWI",
+                    "TTO",
+                    "COG",
+                    "THA",
+                    "TUR",
+                    "TUN",
+                    "TGO",
+                    "LBY",
+                    "KHM",
+                    "COL",
+                    "UGA",
+                    "CYP",
+                    "CUW",
+                    "MAR",
+                    "CHL",
+                    "HRV",
+                    "CZE",
+                    "URY",
+                    "UZB",
+                    "DNK",
+                    "DJI",
+                    "MLT",
+                    "MTQ",
+                    "DMA",
+                    "DOM",
+                    "ETH",
+                    "MEX",
+                    "MCO",
+                    "MNG",
+                    "MOZ",
+                    "HKG",
+                    "HUN",
+                    "GEO",
+                    "DEU",
+                    "GHA",
+                    "GIB",
+                    "GRC",
+                    "GRL",
+                    "GRD",
+                    "GLP",
+                    "GUM",
+                    "GTM",
+                    "GGY",
+                    "GIN",
+                    "GUY",
+                    "HTI",
+                    "HND",
+                    "NPL",
+                    "MNE",
+                    "MRT",
+                    "MUS",
+                    "USA",
+                    "ARE",
+                    "GBR",
+                    "SEN",
+                    "SRB",
+                    "SYC",
+                    "SLE",
+                    "SGP",
+                    "SVK",
+                    "SVN",
+                    "SLB",
+                    "ZAF",
+                    "ESP",
+                    "LKA",
+                    "SUR",
+                    "LBR",
+                    "SWZ",
+                    "SWE",
+                    "CHE",
+                    "TWN",
+                    "KWT",
+                    "KGZ",
+                    "LVA",
+                    "LBN",
+                    "LSO",
+                    "LIE",
+                    "LTU",
+                    "LUX",
+                    "MYS",
+                    "TCA",
+                    "UKR",
+                    "VUT",
+                    "VEN",
+                    "VNM",
+                    "VGB",
+                    "VIR",
+                    "ZMB",
+                    "ZWE",
+                    "MDV",
+                    "MLI",
+                    "MYT",
+                    "NGA",
+                    "EST",
+                    "FRO",
+                    "FJI",
+                    "FIN",
+                    "ISL",
+                    "IND",
+                    "IDN",
+                    "IRQ",
+                    "IRL",
+                    "IMN",
+                    "ISR",
+                    "ITA",
+                    "JAM",
+                    "JPN",
+                    "JEY",
+                    "JOR",
+                    "AFG",
+                    "ALB",
+                    "BOL",
+                    "ECU",
+                    "EGY",
+                    "SLV",
+                    "FRA",
+                    "GUF",
+                    "GAB",
+                    "GMB",
+                    "BIH",
+                    "NCL",
+                    "NZL",
+                    "BMU",
+                    "BTN",
+                    "AGO",
+                    "AIA",
+                    "KAZ",
+                    "KEN",
+                    "KOR",
+                    "ARG",
+                    "ARM",
+                    "ABW",
+                    "AUS",
+                    "AUT",
+                    "AZE",
+                    "BHS",
+                    "BHR",
+                    "BGD",
+                    "BEL",
+                    "BLZ",
+                    "BEN",
+                    "BRB",
+                    "BLR",
+                    "SAU",
+                    "PRI",
+                    "PNG",
+                    "PHL",
+                    "PAK",
+                    "NOR",
+                    "OMN",
+                    "PAN",
+                    "PRY",
+                    "PER",
+                    "NAM",
+                    "NIC",
+                    "NER",
+                    "MMR",
+                    "QAT",
+                    "ROU",
+                    "RWA",
+                    "POL",
+                    "PRT",
+                    "NLD",
+                    "BES",
+                    "BWA",
+                    "BRA",
+                    "RUS",
+                    "RUS",
+                    "RUS",
+                    "KNA",
+                    "LCA",
+                    "PSE",
+                    "ESP",
+                    "ESP",
+                    "XKX",
+                    "MDA",
+                    "BRN",
+                    "MAC",
+                    "TZA",
+                    "ICC",
+                    "MKD",
+                    "COD",
+                    "ATG",
+                    "ANT",
+                    "LAO",
+                    "BLM",
+                    "SJM",
+                    "MAF",
+                    "SXM",
+                    "FLK",
+                    "SHN",
+                    "REU",
+                    "REU",
+                    "PSE",
+                    "384",
+                    "NIR"
+                ]
+            }
+        ]
+    }
+]

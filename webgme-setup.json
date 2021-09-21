@@ -1,0 +1,69 @@
+{
+  "components": {
+    "routers": {},
+    "plugins": {
+      "Create_IOR_Estimator": {
+        "src": "src/plugins/Create_IOR_Estimator",
+        "test": "test/plugins/Create_IOR_Estimator"
+      },
+      "CreateSmartCicCosts": {
+        "src": "src/plugins/CreateSmartCicCosts",
+        "test": "test/plugins/CreateSmartCicCosts"
+      },
+      "DHL": {
+        "src": "src/plugins/DHL",
+        "test": "test/plugins/DHL"
+      },
+      "GD_1": {
+        "src": "src/plugins/GD_1",
+        "test": "test/plugins/GD_1"
+      },
+      "GD_2": {
+        "src": "src/plugins/GD_2",
+        "test": "test/plugins/GD_2"
+      },
+      "Vendor_Bundle_generator": {
+        "src": "src/plugins/Vendor_Bundle_generator",
+        "test": "test/plugins/Vendor_Bundle_generator"
+      },
+      "VelocloudParts": {
+        "src": "src/plugins/VelocloudParts",
+        "test": "test/plugins/VelocloudParts"
+      },
+      "JuniperParts": {
+        "src": "src/plugins/JuniperParts",
+        "test": "test/plugins/JuniperParts"
+      },
+      "CreateProjectv2": {
+        "src": "src/plugins/CreateProjectv2",
+        "test": "test/plugins/CreateProjectv2"
+      },
+      "SilverpeakParts": {
+        "src": "src/plugins/SilverpeakParts",
+        "test": "test/plugins/SilverpeakParts"
+      },
+      "CreateProject": {
+        "src": "src/plugins/CreateProject",
+        "test": "test/plugins/CreateProject"
+      },
+      "ImportSuppliers": {
+        "src": "src/plugins/ImportSuppliers",
+        "test": "test/plugins/ImportSuppliers"
+      },
+      "SupplierLogic": {
+        "src": "src/plugins/SupplierLogic",
+        "test": "test/plugins/SupplierLogic"
+      }
+    }
+  },
+  "dependencies": {
+    "routers": {
+      "BindingsDocs": {
+        "project": "webgme-bindings",
+        "path": "node_modules/webgme-bindings/src/routers/BindingsDocs",
+        "mount": "bindings-docs"
+      }
+    },
+    "plugins": {}
+  }
+}
